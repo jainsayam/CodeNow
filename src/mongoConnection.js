@@ -26,11 +26,15 @@
 //     db.close();
 //   });
 // });
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb+srv://minor:minor%401234@cluster0.qei85.mongodb.net/codenow?retryWrites=true&w=majority";
+// var MongoClient = require('mongodb').MongoClient;
+// var url = "mongodb+srv://minor:minor%401234@cluster0.qei85.mongodb.net/codenow?retryWrites=true&w=majority";
 
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  console.log("Database created!");
-  db.close();
-});
+// MongoClient.connect(url, function(err, db) {
+//   if (err) throw err;
+//   console.log("Database created!");
+//   db.close();
+// });
+const mongoose =require('mongoose');
+mongoose.connect("mongodb+srv://minor:minor%401234@cluster0.qei85.mongodb.net/codenow?retryWrites=true&w=majority")
+.then(()=> console.log('connection successfull'))
+.catch((err)=>  console.log(err));

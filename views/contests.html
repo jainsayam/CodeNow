@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- css for login and signup -->
+    <link rel="stylesheet" type="text/css" href="login.css">
+    <title>Main site</title>
+    <style type="text/css">
+    /*css for styling the home page front lines (temporary)*/
+    .train
+    {
+      text-shadow: -3px 1px 0 #000, 1px 1px 0 #000, 1px -3px 0 #000, -3px -3px 0 #000;
+    }
+
+    
+.neumorphism-toggles > input[type=text].neumorphism:hover{
+     box-shadow:
+        0 0 15px rgba( 209,217,230,1), 
+        0 0 15px rgba(255,255,255,1), 
+        inset 10px 10px 15px rgba( 209,217,230,1),
+         inset -10px -10px 15px rgba(255,255,255,1);
+}
+
+.neumorphism-toggles > input[type=text].neumorphism{
+position: relative;
+border: none; 
+border-width: 0; 
+box-shadow: none;
+-webkit-appearance: none;
+width: 110px; 
+height:36px;
+margin: 16px;
+background-color: #e3ebec;
+box-shadow:10px 10px 15px rgba( 209,217,230,1),
+               -10px-10px 15px rgba(255,255,255,1),
+               inset 0 0 15px rgba(209,217,230,1),
+               inset 0 0 15px rgba(255,255,255,1); 
+border-radius: 20px;
+ outline: none; 
+ cursor: pointer; 
+ transition: all .3s ease-in-out;
+}
+
+.neumorphism-toggles > input[type=text].neumorphism::before {
+font-family: 'Font Awesome 5 Free';
+ font-weight: 900; 
+ font-size: 35px; 
+ color: rgba(176, 245, 14, 0.979);
+  position: absolute;
+   left: 50%;
+    top: 50%;
+
+    transform: translate( -50%, -50%);
+     transition: all .3s ease-in-out;
+}
+
+.neumorphism-toggles > input[type=text].neumorphism:hover::before {
+color: rgba(134, 226, 12, 0.972);
+
+
+}
+
+body{
+/* padding: 0;
+ margin: 0; 
+ height: 100vh;
+display: flex;
+ justify-content: center; 
+ align-items: center; */
+  background-color: #f5fbff;
+}
+
+
+.neumorphism-toggles {
+
+  margin-top: 100px;
+margin-left: 240px;
+position: relative; 
+width: 856px;
+padding: 0px;
+ background-color: #e3e6ec;
+  box-shadow:
+10px 10px 15px rgba( 209,217,230,1),-10px -10px 15px rgba(255,255,255,1);
+border-radius: 20px; font-size: 0;
+}
+
+</style>
+  
+  </head>
+  <body>
+         <!-- navbar -->
+        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">CodeNow</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="       #navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"         aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link " aria-current="page" href="bootstrap.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about.html">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Topics</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="technoloy.html">Technology</a></li>
+                      <li><a class="dropdown-item" href="Web Development">Web Development</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="Support Us.html">Support Us</a></li>
+                      <li><a class="dropdown-item" href="feedback.html">Feedback</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="contactus.html">Contact Us</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link active" href="contests .html">Contests</a>
+                </li>
+              </ul>
+              <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button type="button" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"      class="" class="bi bi-search" viewBox="0 0 16 16">
+                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                      </path>
+                    </svg>
+                  </button>
+              </form>
+              <div class="mx-2">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                <button class="btn btn-danger"data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+              </div>
+            </div>
+          </div>
+        </nav>
+<!-- end of navbar -->
+<!--Login Modal -->
+<div  class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+                <!--form body -->
+        <form  class="loginfullbox">
+          <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Sign-Up Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalLabel">SignUp</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!--form body -->
+        <form class="loginfullbox">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="cexampleInputPassword1" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="cexampleInputPassword1">
+            </div>
+          <button type="submit" class="btn btn-primary">create account</button>
+        </form>
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+   <!-- REAL CODE MY FRD  (-: -->
+
+
+    <div class="neumorphism-toggles">
+       <input type="text" class="neumorphism fa-home" >
+        <input type="text" class="neumorphism fa-bell">
+        <input type="text" class="neumorphism fa-lightbulb">
+        <input type="text" class="neumorphism fa-thermometer-half"> 
+        <input type="text" class="neumorphism fa-laptop">
+        <input type="text" class="neumorphism fa-blender">
+     </div>
+
+ 
+<!-- end of login and signup -->
+
+<!-- footer starts -->
+<!-- <div class="container bg-dark">
+  <footer class="py-5  ">
+    <div class="row">
+      <div class="col-2">
+        <h5>Section</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+        </ul>
+      </div>
+      <div class="col-2">
+        <h5>Section</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+        </ul>
+      </div>
+      <div class="col-2">
+        <h5>Section</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+        </ul>
+      </div>
+      <div class="col-4 offset-1">
+        <form>
+          <h5>Subscribe to our newsletter</h5>
+          <p>Monthly digest of whats new and exciting from us.</p>
+          <div class="d-flex w-100 gap-2">
+            <label for="newsletter1" class="visually-hidden">Email address</label>
+            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+            <button class="btn btn-primary" type="button">Subscribe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between py-4 my-4 border-top">
+      <p>© 2021 Company, Inc. All rights reserved.</p>
+      <ul class="list-unstyled d-flex">
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+      </ul>
+    </div>
+  </footer>
+</div> -->
+<!-- end of footer -->
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

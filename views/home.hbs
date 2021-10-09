@@ -1,254 +1,190 @@
-<!doctype hbs>
-<hbs lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <!-- css for login and signup -->
-    <link rel="stylesheet" type="text/css" href="./css/login.css">
-    <title>Main site</title>
-    <style type="text/css">
-    /*css for styling the home page front lines (temporary)*/
-    .train
-    {
-      text-shadow: -3px 1px 0 #000, 1px 1px 0 #000, 1px -3px 0 #000, -3px -3px 0 #000;
-    }
-    </style>
-  </head>
-  <body>
-         <!-- navbar -->
-        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">CodeNow</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="       #navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"         aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<!DOCTYPE html>
+<html lang="en">
 
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/home">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/about">About Us</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Topics</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="technoloy.hbs">Technology</a></li>
-                      <li><a class="dropdown-item" href="Web Development">Web Development</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="Support Us.hbs">Support Us</a></li>
-                      <li><a class="dropdown-item" href="feedback.hbs">Feedback</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/contactus">Contact Us</a>
-                </li>
-                 <li class="nav-item">
-                  <a class="nav-link" href="/contest">Contests</a>
-                </li>
-              </ul>
-              <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button type="button" class="btn btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"      class="" class="bi bi-search" viewBox="0 0 16 16">
-                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
-                      </path>
-                    </svg>
-                  </button>
-              </form>
-              <div class="mx-2">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                  <a class="nav-link " aria-current="page" href="./login">Login</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="./signup">SignUp</a>
-                </li>
-                </ul>
-                <!-- <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-                <button class="btn btn-danger"data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button> -->
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-              </div>
-            </div>
+  <!-- bootstrap css -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <!-- phone css -->
+  <link rel="stylesheet" type="text/css" media=" screen and (min-width:1300px) and (max-width: 1500px)"
+    href="./css/landing_pc.css">
+  <link rel="stylesheet" type="text/css" media=" screen and (max-width: 1300px)" href="./css/landing_phone.css">
+  <!-- part3 link -->
+  <link rel="stylesheet" href="./social-media-icons.css">
+  <script src="https://kit.fontawesome.com/66aa7c98b3.js" crossorigin="anonymous"></script>
+  <title>Landing Page</title>
+<style type="text/css">
+    .img-fluid {
+    max-width: 100%;
+    height: auto;
+    border-radius: 11%;
+    box-shadow:  -20px -20px 60px #b3b3b3,
+             20px 20px 60px #ffffff;
+}
+</style>
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar sticky-top navbar navbar-dark bg-dark ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/home">CodeNow</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav me-auto ">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/contests">Contests</a>
+          </li>
+        </ul>
+        <div class="mx-2">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="/Login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/signup">SignUp</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- part 1 -->
+  <div class="container my-4">
+    <div class="row featurette d-flex justify-content-center align-items-center">
+      <div class="col-md-7 ">
+        <h2 class="text-dark" class="featurette-heading d-flex justify-content-center align-items-center">
+          CodeNow&nbsp<span class="text-dark">Contests</span></h2>
+        <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium voluptates
+          corporis voluptatem magnam ipsum! Voluptas hic minus ad incidunt it
+        </p>
+        <p class="lead">
+          <a class="btn  btn-dark" href="/login" role="button">Join Now</a>
+        </p>
+      </div>
+      <div class="col-md-5 order-md-2">
+        <img class="img-fluid" src="./images/landing_img.jpg">
+      </div>
+    </div>
+  </div>
+  <!-- part -2 -->
+  <br>
+  <br>
+  <div class="part2"><h5> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores sed recusandae repellendus
+    doloribus obcaecati quisquam facilis perspiciatis veniam, similique nemo a corporis asperiores quia. Explicabo iusto
+    odio aut molestiae iste Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, error fugit quod animi
+    nihil debitis dolorum magni quasi excepturi laboriosam ad. Corporis consectetur quibusdam ex ullam, itaque atque
+    aspernatur vel? </h5></div> 
+
+  <!-- part 3 -->
+<div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Facilities</h2>
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+      <div class="col">
+        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('https://source.unsplash.com/900x400/?programming');">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Less Traffic</h2>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto">
+                <img src="codenow_logo.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+              </li>
+              <li class="d-flex align-items-center me-3">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                <small>Less traffic</small>
+              </li>
+             
+            </ul>
           </div>
-        </nav>
-<div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"             aria-current="true" aria-label="Slide 1">
-    </button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://source.unsplash.com/900x300/?dark programming" class="d-block w-100" alt="..." >
-      <div class="carousel-caption d-none d-md-block">
-        <h2 class="train">Welcome to CodeNow</h2>
-        <p >“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”</p>
-        <button type="button" class="btn btn-primary">Technology</button>
-        <button type="button" class="btn btn-success">News</button>
-        <button type="button" class="btn btn-danger">Development</button>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="https://source.unsplash.com/900x300/?black cool sky" class="d-block w-100" alt="..."  >
-      <div class="carousel-caption d-none d-md-block">
-         <h2 class="train">Do coding Now</h2>
-        <p >“Java is to JavaScript what car is to Carpet.”</p>
-        <button type="button" class="btn btn-primary">Technology</button>
-        <button type="button" class="btn btn-success">News</button>
-        <button type="button" class="btn btn-danger">Development</button>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="https://source.unsplash.com/900x300/?champions quotes" class="d-block w-100" alt="..."  >
-      <div class="carousel-caption d-none d-md-block">
-        <h2 class="train">participate in contest</h2>
-        <button type="button" class="btn btn-primary">Start Now </button>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="     prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="   next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-<!-- end of carousel -->
-<!-- random cards -->
-<div class="container my-4"> 
- <div class="row mb-2">
-    <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary">Solutions</strong>
-          <h3 class="mb-0">contests Solutions</h3>
-          <div class="mb-1 text-muted">date :00/00/0000</div>
-          <p class="card-text mb-auto">Programming solutions after the contest.</p>
-          <a href="#" class="stretched-link">Continue reading</a>
         </div>
-        <div class="col-auto d-none d-lg-block">
-         <img class="bd-placeholder-img" width="200" height="250" src="images/florian-olivo-4hbJ-eymZ1o-unsplash.png">
+      </div>
 
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-success">conduct contests</strong>
-          <h3 class="mb-0">conduct contest</h3>
-          <div class="mb-1 text-muted">00/00/0000</div>
-          <p class="mb-auto">We also conduct competitive coding contests, so you can apply for that too.</p>
-          <a href="#" class="stretched-link">Continue reading</a>
-        </div>
-        <div class="col-auto d-none d-lg-block">
-          <img class="bd-placeholder-img" width="200" height="250" src="images/ilya-pavlov-OqtafYT5kTw-unsplash.png">
-
-        </div>
-      </div>
-    </div>
-     <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-danger">python</strong>
-          <h3 class="mb-0">Learn python</h3>
-          <div class="mb-1 text-muted">00/00/0000</div>
-          <p class="mb-auto">We also conduct competitive coding contests, so you can apply for that too.</p>
-          <a href="#" class="stretched-link">Continue reading</a>
-        </div>
-        <div class="col-auto d-none d-lg-block">
-          <img class="bd-placeholder-img" width="200" height="200" src="images/ilya-pavlov-OqtafYT5kTw-unsplash.png">
-
-        </div>
-      </div>
-    </div>
-     <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-warning">bootstrap</strong>
-          <h3 class="mb-0">learn bootstrap</h3>
-          <div class="mb-1 text-muted">00/00/0000</div>
-          <p class="mb-auto">We also conduct competitive coding contests, so you can apply for that too.</p>
-          <a href="#" class="stretched-link">Continue reading</a>
-        </div>
-        <div class="col-auto d-none d-lg-block">
-          <img class="bd-placeholder-img" width="200" height="200" src="images/ilya-pavlov-OqtafYT5kTw-unsplash.png">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container bg-dark">
-  <footer class="py-5  ">
-    <div class="row">
-      <div class="col-2">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
-      <div class="col-2">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
-      <div class="col-2">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
-      <div class="col-4 offset-1">
-        <form>
-          <h5>Subscribe to our newsletter</h5>
-          <p>Monthly digest of whats new and exciting from us.</p>
-          <div class="d-flex w-100 gap-2">
-            <label for="newsletter1" class="visually-hidden">Email address</label>
-            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-            <button class="btn btn-primary" type="button">Subscribe</button>
+      <div class="col">
+        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('https://source.unsplash.com/900x400/?black wallpaper');">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Good User Interface</h2>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto">
+                <img src="codenow_logo.png" alt="logo" width="32" height="32" class="rounded-circle border border-white">
+              </li>
+              <li class="d-flex align-items-center me-3">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                <small>UI that you love !</small>
+              </li>
+            </ul>
           </div>
-        </form>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('https://source.unsplash.com/900x400/?space');">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Group Contest</h2>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto">
+                <img src="codenow_logo.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+              </li>
+              <li class="d-flex align-items-center me-3">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                <small>Contests you Love !</small>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="d-flex justify-content-between py-4 my-4 border-top">
-      <p>© 2021 Company, Inc. All rights reserved.</p>
-      <ul class="list-unstyled d-flex">
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-      </ul>
-    </div>
-  </footer>
-</div>
-<!-- end of footer -->
-    <!-- Optional JavaScript; choose one of the two! -->
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-    -->
-  </body>
-</hbs>
+  </div>
+  <!-- part 4 ends -->
+      
+  <!-- part 4  cards-->
+
+ 
+ 
+        <div class="social-menu">
+            <ul>
+                <li><a href="https://github.com/NeoShubh" target="blank"><i class="fab fa-github"></i></i></a></li>
+                <li><a href="https://www.linkedin.com/in/shubham-rathore-1a25111a9/" target="blank"><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a href="https://www.instagram.com/royalrathore107/" target="blank"><i class="fab fa-instagram"></i></a></li>
+               
+                <li><a href="https://www.facebook.com/profile.php?id=100036683740884"><i class="fab fa-facebook" target="blank"></i></a></li>
+            </ul>
+        </div>
+      
+<!-- 
+  <div id="outer">
+    <div class="inner"><button class="Btn"><i class="fab fa-affiliatetheme fa-10x"></i>
+      </button></div>
+    <div class="inner"><button class="Btn"><i class="fab fa-algolia fa-10x"></i></button></div>
+    <div class="inner"><button class="Btn"><i class="fas fa-anchor fa-10x"></i></button></div>
+  </div>
+  <div id="outer">
+    <div class="inner"><button class="Btn"><i class="fab fa-app-store-ios fa-10x"></i></button></div>
+    <div class="inner"><button class="Btn"><i class="fab fa-angrycreative fa-10x "></i></button></div>
+    <div class="inner"><button class="Btn"><i class="fab fa-apple fa-10x"></i></button></div>
+  </div> -->
+
+
+  <!-- bootstrap script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
+
+  <script>
+
+  </script>
+
+</body>
+
+</html>

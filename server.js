@@ -4,7 +4,6 @@ const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 require('./src/db/connection');
 const Register = require('./src/model/register');
-const LoggedInUser=require('./src/model/login');
 const app = express();
 const cookieParser=require('cookie-parser');
 const auth=require('./src/middleware/auth');
@@ -14,7 +13,7 @@ app.use(express.static(static_path));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-app.get('/',auth ,(req, res) => {
+app.get('/' ,(req, res) => {
     res.render('home');
 });
 app.get('/home', (req, res) => {
@@ -37,7 +36,6 @@ app.get('/signup', (req, res) => {
 });
 app.post('/register', async (req, res) => {
     try {
-
         const password = req.body.password;
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const cpassword = req.body.cpassword;
@@ -50,10 +48,10 @@ app.post('/register', async (req, res) => {
                     email: req.body.email,
                     password: hashedPassword
                 });
+                const token=await registerUser.generateAuthToken();
                 const registered = await registerUser.save();
-                console.log('in login');
-                res.redirect('landingpage');
-            } else {
+                res.render('landingpage');
+            } else{
                 res.send('password are not matched');
             }
         }
@@ -65,18 +63,14 @@ app.post('/register', async (req, res) => {
 app.post('/login',async (req,res)=>{
     try{
         const email=req.body.email,password=req.body.password;
-        console.log(email);
-        console.log(password);
         const userDetail=await Register.findOne({email:email});
         const matched=await bcrypt.compare(req.body.password, userDetail.password);
         if(matched){
-            const token= await jwt.sign({ _id : userDetail._id},'ourprojectnameiscodenowwearebuildingaprojetforonlinecoding');
-            const loggedin=new LoggedInUser({
-                _id:userDetail._id,
-                token:token
+            const token=await userDetail.generateAuthToken();
+            res.cookie('jwt',token,{
+                expires:new Date(Date.now()+604800000),
+                httpOnly:true
             });
-            await loggedin.save();
-            res.cookie('jwt',token);
             res.render('landingpage');
         }else{
             res.send('Invalid credentials');
@@ -84,6 +78,16 @@ app.post('/login',async (req,res)=>{
     }catch(error){
         res.send(error);
     }
+});
+app.post('/logout',auth,async (req,res)=>{
+    req.user.tokens=req.user.tokens.filter((currToken)=>{
+        return req.token!==currToken.token;
+    });
+    res.clearCookie('jwt');
+    console.log('hello'+(req.user));
+    await req.user.save();
+    console.log('bye'+(req.user));
+    res.render('home');
 });
 app.listen(3000, () => {
     console.log('server is running in http:localhost:3000');

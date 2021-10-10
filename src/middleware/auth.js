@@ -1,28 +1,14 @@
 const jwt=require('jsonwebtoken');
-const login=require('../model/login');
-const cookieParser=require('cookie-parser');
+const Register=require('../model/register');
 
-const auth=async function(req,res,next){
+const auth = async (req,res,next) => {
     try {
-        console.log('hrllo');
         const token=req.cookies.jwt;
-        console.log(token);
-        if(token==null)
-        {
-            next();
-        }
-        else{
-             const veriftUser=jwt.verify(token,'ourprojectnameiscodenowwearebuildingaprojetforonlinecoding');
-             console.log(veriftUser);
-             try{
-                const user=await login.findOne({_id:veriftUser._id});
-                console.log(user);
-             }catch(err){
-                 res.render('home');
-             }
-             
-            next();
-        }
+        const verifyUser=await jwt.verify(token,'ourprojectnameiscodenowwearebuildingaprojetforonlinecoding');
+        const user=await Register.findOne({_id:verifyUser._id});
+        req.token=token;
+        req.user=user;
+        next();
     } catch (error) {
         res.status(401).send(error);
     }

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- bootstrap link -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <title>Contest Form | CodeNow</title>
+</head>
+
+<style type="text/css">
+
+
+  .setform{
+    border-radius: 50px;
+background: #e0e0e0;
+box-shadow:  -11px -11px 22px #cccccc,
+             11px 11px 22px #f4f4f4;
+    width: 28rem;
+    margin:2rem 28rem;
+    padding: 2rem 2rem;
+    transition: all 3s;
+  }
+
+  .setform:hover{
+    transform: scale(1,1);
+    border-radius: 50px;
+background: #e0e0e0;
+box-shadow: inset 20px 20px 60px #9b9b9b,
+            inset -20px -20px 60px #ffffff;
+  }
+.elementset {
+    
+    width: 355px;
+    margin: 10px 10px;
+    padding: 10px 10px;
+}
+.sethead{
+   margin: 1rem 27.7rem;
+   transition: all 2s;
+}
+.sethead:hover{
+  color: green;
+}
+.variation2 span {
+    font-size: 2rem;
+}
+
+
+</style>
+<body>
+
+  <!-- navbar starts -->
+    <nav class="navbar navbar-expand-lg navbar sticky-top navbar navbar-dark bg-dark ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/home">CodeNow</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="       #navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav me-auto ">
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contactus">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contests">Contests</a>
+          </li>
+        </ul>
+        <div class="mx-2">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="/landingpage">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+<!-- navbar ends -->
+<!-- bradcrumb -->
+
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/contest_administration">Contest Administration</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Contest Form </li>
+  </ol>
+</nav>
+
+
+
+<!-- breadcrumb ends -->
+<!-- form start -->
+<br>
+<h1 class="sethead"> Submit your information</h1>
+
+<div class="setform">
+  <form>   
+    <div class="elementset">
+      <label for="fname">Contest name :</label>
+      <input type="text" id="contestname" name="contestname">
+    </div>
+    <div class="elementset">
+      <label for="sdate">Starting Date :</label>
+      <input type="date" id="sdate" name="sdate">
+    </div>
+    <div class="elementset">
+      <label for="stime">Starting time :</label>
+      <input type="time" id="appt" name="stime">
+    </div>
+    <div class="elementset">
+      <label for="fdate">Ending Date :</label>
+      <input type="date" id="fdate" name="fdate">
+    </div>
+    <div class="elementset">
+      <label for="ftime">Ending time :</label>
+      <input type="time" id="appt" name="ftime">
+    </div>
+     <div class="elementset"> 
+ <label for="orgtype">Choose a organization type:</label>
+  <select name="orgs" id="orgs">
+    <option value="volvo">School</option>
+    <option value="saab">Company</option>
+    <option value="opel">College</option>
+    <option value="audi">Other</option>
+  </select>
+</div>
+    <div class="elementset">
+      <label for="orgname">Orgaization name :</label>
+      <input type="text" id="orgname" name="orgname">
+    </div>
+<div class="elementset">
+<input type="submit" class="btn btn-outline-success" value="Submit">
+    </div>
+</form>
+</div>
+<!-- forends -->
+
+
+
+
+
+
+<!-- bootstrap js -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+</html>

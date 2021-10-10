@@ -1,15 +1,20 @@
 const express = require('express');
 const path = require('path');
 const bcrypt=require('bcrypt');
+const jwt=require('jsonwebtoken');
 require('./src/db/connection');
 const Register = require('./src/model/register');
+const LoggedInUser=require('./src/model/login');
 const app = express();
+const cookieParser=require('cookie-parser');
+const auth=require('./src/middleware/auth');
 const static_path = path.join(__dirname, "/public");
 app.set('view engine', 'hbs');
 app.use(express.static(static_path));
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-app.get('/', (req, res) => {
+app.get('/',auth ,(req, res) => {
     res.render('home');
 });
 app.get('/home', (req, res) => {
@@ -21,7 +26,7 @@ app.get('/about', (req, res) => {
 app.get('/contactus', (req, res) => {
     res.render('contactus');
 });
-app.get('/contest', (req, res) => {
+app.get('/contests', (req, res) => {
     res.render('contests');
 });
 app.get('/login', (req, res) => {
@@ -32,6 +37,7 @@ app.get('/signup', (req, res) => {
 });
 app.post('/register', async (req, res) => {
     try {
+
         const password = req.body.password;
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const cpassword = req.body.cpassword;
@@ -45,7 +51,8 @@ app.post('/register', async (req, res) => {
                     password: hashedPassword
                 });
                 const registered = await registerUser.save();
-                res.status(201).render('home');
+                console.log('in login');
+                res.redirect('landingpage');
             } else {
                 res.send('password are not matched');
             }
@@ -58,15 +65,24 @@ app.post('/register', async (req, res) => {
 app.post('/login',async (req,res)=>{
     try{
         const email=req.body.email,password=req.body.password;
+        console.log(email);
+        console.log(password);
         const userDetail=await Register.findOne({email:email});
         const matched=await bcrypt.compare(req.body.password, userDetail.password);
         if(matched){
-            res.send('You are logged in.');
+            const token= await jwt.sign({ _id : userDetail._id},'ourprojectnameiscodenowwearebuildingaprojetforonlinecoding');
+            const loggedin=new LoggedInUser({
+                _id:userDetail._id,
+                token:token
+            });
+            await loggedin.save();
+            res.cookie('jwt',token);
+            res.render('landingpage');
         }else{
             res.send('Invalid credentials');
         }
     }catch(error){
-        res.send('Invalid credentials');
+        res.send(error);
     }
 });
 app.listen(3000, () => {

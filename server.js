@@ -128,12 +128,14 @@ app.post('/contestRegistration',async (req,res)=>{
 app.post('/contestDescription',async (req,res)=>{
     try {
         const contestExra=new contestExtraInfo({
+
             description:req.body.desc,
             prizes:req.body.prizes,
             rules:req.body.rules
         });
         await contestExra.save();
         res.render('preview',{
+            contestName:req.body.contestName,
             desc:req.body.desc,
             prizes:req.body.prizes,
             rules:req.body.rules

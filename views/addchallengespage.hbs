@@ -102,7 +102,10 @@
           <h4><strong>Customize your Contest landing page</strong></h4>
           <br>
           <form action="/contestDescription" method="POST">
-           <input type="hidden" name="contestName" value="{{contestName}}" >
+
+            <input type="hidden" name="contestName" value="{{contestName}}">
+            <input type="hidden" name="sdate" value="{{startDate}}">
+            <input type="hidden" name="stime" value="{{startTime}}">
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-label"><strong>Desciption about
                   contest</strong></label>
@@ -110,11 +113,11 @@
             </div>
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-label"><strong>Prizes</strong></label>
-              <textarea name="prizes"class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+              <textarea name="prizes" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
             </div>
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-label"><strong>Rules</strong></label>
-              <textarea name="rules"class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+              <textarea name="rules" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
             </div>
 
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -131,10 +134,11 @@
 
     <div class="card" style="width: 18rem;">
       <div class="card-header">
-        <li class="list-group-item"><a class="btn btn-outline-success" href="/createchallenge" role="button">create a
-            Problem</a></li>
+        <form action="/createchallenge" method="POST">
+          <input type="hidden" name="contest_name" value="{{contestName}}" >
+          <input class="btn btn-outline-success" type="submit" value="create a Problem" />
+        </form>
       </div>
-
     </div>
   </div>
 

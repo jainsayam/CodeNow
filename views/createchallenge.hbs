@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-	<title>add challenges | CodeNow</title>
+  <meta charset="utf-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <title>add challenges | CodeNow</title>
 
 
-	<style type="text/css">
+  <style type="text/css">
 
-	</style>
+  </style>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar sticky-top navbar navbar-dark bg-dark ">
+  <nav class="navbar navbar-expand-lg navbar sticky-top navbar navbar-dark bg-dark ">
     <div class="container-fluid">
       <a class="navbar-brand" href="/home">CodeNow</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -22,8 +25,8 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <ul class="navbar-nav me-auto ">
-          
-          
+
+
           <li class="nav-item">
             <a class="nav-link" href="/about">About Us</a>
           </li>
@@ -53,66 +56,71 @@
 
 
 
-<div class="card" style="width: 60rem;">
-  <div class="card-body">
-    <h5 class="card-title"><strong>Give information about Problem.</strong></h5>
-    
-  </div>
-  <ul class="list-group list-group-flush">
-     
-       <li class="list-group-item">
-      <h4><strong>Create your Problem</strong></h4>
-      <br>
-      <form>
-        <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"><strong>Problems Name</strong></label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
-         <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"><strong>Description</strong></label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
-         <div class="mb-3">
-        
-        <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"><strong>Input Format</strong></label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
-        <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"><strong>Output Format</strong></label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
-        <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"><strong>Constraints</strong></label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
-        <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"><strong>Sample Input</strong></label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
-        <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"><strong>Sample Output</strong></label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
-        <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"><strong>Explanation</strong></label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="submit" class="btn btn-primary">Submit</button>&nbsp
-        <button type="reset" class="btn btn-secondary">Reset</button>
-      </div>
+  <div class="card" style="width: 60rem;">
+    <div class="card-body">
+      <h5 class="card-title"><strong>Give information about Problem.</strong></h5>
+
+    </div>
+    <ul class="list-group list-group-flush">
+
+      <li class="list-group-item">
+        <h4><strong>Create your Problem</strong></h4>
+        <br>
+        <form action="/addchallenge" method="POST">
+        <input type="hidden" name="contestName" value="{{contestName}}"/>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label"><strong>Problems Name</strong></label>
+            <textarea class="form-control" name="problem_name" id="exampleFormControlTextarea1" rows="5"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label"><strong>Description</strong></label>
+            <textarea class="form-control" name="problem_statement" id="exampleFormControlTextarea1"
+              rows="5"></textarea>
+          </div>
+          <div class="mb-3">
+
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"><strong>Input Format</strong></label>
+              <textarea class="form-control" name="input_format" id="exampleFormControlTextarea1" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"><strong>Output Format</strong></label>
+              <textarea class="form-control" name="output_format" id="exampleFormControlTextarea1" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"><strong>Constraints</strong></label>
+              <textarea class="form-control" name="constraints" id="exampleFormControlTextarea1" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"><strong>Sample Input</strong></label>
+              <textarea class="form-control" name="sample_input" id="exampleFormControlTextarea1" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"><strong>Sample Output</strong></label>
+              <textarea class="form-control" name="sample_output" id="exampleFormControlTextarea1" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"><strong>Explanation</strong></label>
+              <textarea class="form-control" name="explaination" id="exampleFormControlTextarea1" rows="5"></textarea>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <input type="submit" class="btn btn-primary" value="Add">&nbsp
+            </div>
         </form>
-       </li>
-         <li class="list-group-item"><a class="btn btn-outline-success" href="/previewchallenge" role="button">Preview</a></li>
-  </ul>
-</div>
+      </li>
+      <li class="list-group-item"><a class="btn btn-outline-success" href="/previewchallenge" role="button">Preview</a>
+      </li>
+    </ul>
+  </div>
 
 
 
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>

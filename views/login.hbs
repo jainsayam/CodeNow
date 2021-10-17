@@ -12,18 +12,24 @@
     <title>Login Page | CodeNow</title>
     <style type="text/css">
     /*css for styling the home page front lines (temporary)*/
-    .train
-    {
+    body{
+      background-color: lightgray;
+    }
+    .train {
       text-shadow: -3px 1px 0 #000, 1px 1px 0 #000, 1px -3px 0 #000, -3px -3px 0 #000;
     }
 
-    .settle{
-        padding-top: 1px;
+    .settle {
+      padding-top: 1px;
     }
-  .card{
+
+   
+     .card{
      box-shadow:  19px 19px 43px #8f8f8f,
              -19px -19px 43px #ffffff;
-             background-color: #e0e0e0;
+             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1349' height='1195' preserveAspectRatio='none' viewBox='0 0 1349 1195'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1030%26quot%3b)' fill='none'%3e%3crect width='1349' height='1195' x='0' y='0' fill='rgba(170%2c 175%2c 183%2c 1)'%3e%3c/rect%3e%3cpath d='M1349 0L1001.85 0L1349 410.3z' fill='rgba(255%2c 255%2c 255%2c .1)'%3e%3c/path%3e%3cpath d='M1001.85 0L1349 410.3L1349 622.13L485.35 0z' fill='rgba(255%2c 255%2c 255%2c .075)'%3e%3c/path%3e%3cpath d='M485.35 0L1349 622.13L1349 687.51L472.1 0z' fill='rgba(255%2c 255%2c 255%2c .05)'%3e%3c/path%3e%3cpath d='M472.1 0L1349 687.51L1349 752.65L315.26 0z' fill='rgba(255%2c 255%2c 255%2c .025)'%3e%3c/path%3e%3cpath d='M0 1195L204.02 1195L0 750.8399999999999z' fill='rgba(0%2c 0%2c 0%2c .1)'%3e%3c/path%3e%3cpath d='M0 750.8399999999999L204.02 1195L812.59 1195L0 689.3599999999999z' fill='rgba(0%2c 0%2c 0%2c .075)'%3e%3c/path%3e%3cpath d='M0 689.3599999999999L812.59 1195L1128.08 1195L0 272.3599999999999z' fill='rgba(0%2c 0%2c 0%2c .05)'%3e%3c/path%3e%3cpath d='M0 272.3599999999999L1128.08 1195L1190.3 1195L0 179.8599999999999z' fill='rgba(0%2c 0%2c 0%2c .025)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1030'%3e%3crect width='1349' height='1195' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+             height: 30rem;
+             width: 50rem;
            }
       .row -0{
         background-color: #e0e0e0;
@@ -31,13 +37,24 @@
       .form-control-lg {
     min-height: calc(1rem + 1rem + 2px);
     padding: 0.5rem 1rem;
-    font-size: 1.25rem;
-    border-radius: 1.3rem;
-    }
-    .form-label {
+    font-size: 0.8rem;
+    border-radius: 15px;
+    width: 18rem;
+}
+
+.form-label {
     margin-bottom: 0rem;
     margin-left: 1rem;
+    font-size: 15px;
 }
+.mb-4 {
+    margin-bottom: 0.3rem!important;
+}
+.setbtn{
+  margin-top: 10px;
+  }
+
+
     </style>
   </head>
   <body>
@@ -78,15 +95,15 @@
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <!--Login Modal -->
-<section class="vh-100" style="background-color: #f0f5f3;">
-  <div class="container py-5 h-100" class="settle">
+<section class="vh-80" >
+  <div class="container py-2 h-90" class="settle">
     <div class="row d-flex justify-content-center align-items-center h-100" class="settle">
       <div class="col col-xl-10" class="settle">
         <div class="card" style="border-radius: 1rem;">
           <div class="row g-0">
             <div class="col-md-6 col-lg-5 d-none d-md-block">
               <img
-                src="./images/login_img.jpg"
+                    src="./images/login_img.jpg"
                 alt="login form"
                 class="img-fluid" style="border-radius: 1rem 0 0 1rem;"
               />
@@ -114,13 +131,12 @@
                   </div>
 
                   <div class="pt-1 mb-4">
-                    <input class="btn btn-dark btn-lg btn-block" type="submit" value='Login'>Login</button>
+                    <input class="btn btn-dark  btn-block" type="submit" value='Login'>
                   </div>
 
                   <a class="small text-muted" href="#!">Forgot password?</a>
                   <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="/signup" style="color: #393f81;">Register here</a></p>
-                  <a href="#!" class="small text-muted">Terms of use.</a>
-                  <a href="#!" class="small text-muted">Privacy policy</a>
+                 
                 </form>
 
               </div>

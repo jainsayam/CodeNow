@@ -44,8 +44,9 @@ const ProblemSchema=new mongoose.Schema({
      },
      problems:[problemDetailSchema]
 });
-ProblemSchema.methods.addProblem=async function(problem_name,problem_statement,input_format,output_format,constraints,sample_input,sample_output,explaination){
-    this.problems=this.problems.concat({problem_name,problem_statement,input_format,output_format,constraints,sample_input,sample_output,explaination});
+ProblemSchema.methods.addProblem=async function(problemName,problem_statement,input_format,output_format,constraints,sample_input,sample_output,explanation){
+    this.problems=this.problems.concat({problemName,problem_statement,input_format,output_format,constraints,sample_input,sample_output,explanation});
+    
     await this.save();
 }
 const addProb=new mongoose.model('Problem',ProblemSchema);

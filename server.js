@@ -28,8 +28,21 @@ app.get('/about', (req, res) => {
 app.get('/contactus', (req, res) => {
     res.render('contactus');
 });
-app.get('/contests', (req, res) => {
-    res.render('contests');
+app.get('/contests',async (req, res) => {
+    try{
+        const contestname=await contestDetails.find();
+        console.log(contestname);
+        var contestnames=[];
+        for(var i=0;i<contestname.length;i++)
+        {
+            contestnames.push(contestname[i]);
+        }
+    }catch(error){
+        
+    }
+    res.render('contests',{
+        contestnames: contestnames
+    });
 });
 app.get('/login', (req, res) => {
     res.render('login.hbs');
@@ -53,7 +66,7 @@ app.post('/register', async (req, res) => {
                 });
                 const token = await registerUser.generateAuthToken();
                 const registered = await registerUser.save();
-                res.render('landingpage');
+                res.render('home');
             } else {
                 res.send('password are not matched');
             }
@@ -83,10 +96,10 @@ app.post('/login', async (req, res) => {
     }
 });
 app.post('/logout', auth, async (req, res) => {
-    req.user.tokens = req.user.tokens.filter((currToken) => {
+    req.user.tokens = await req.user.tokens.filter((currToken) => {
         return req.token !== currToken.token;
     });
-    res.clearCookie('jwt');
+    await res.clearCookie('jwt');
     await req.user.save();
     res.render('home');
 });
@@ -107,7 +120,7 @@ app.post('/contestRegistration', async (req, res) => {
                 contestStartDate: req.body.sdate,
                 contestEndDate: req.body.edate,
                 startingTime: req.body.stime,
-                endingTime: req.body.edate,
+                endingTime: req.body.etime,
                 organisationName: req.body.orgname
             });
             await contestDetail.save();
@@ -149,7 +162,7 @@ app.post('/contestDescription', async (req, res) => {
 app.post('/createchallenge', (req, res) => {
     try {
         res.render('createchallenge', {
-            contestName: req.body.contest_name
+            contestName: req.body.contestName
         });
     }
     catch (error) {
@@ -159,7 +172,7 @@ app.post('/createchallenge', (req, res) => {
 
 app.post('/addchallenge', async (req, res) => {
     try {
-        if (req.body.problem_name === '' || req.body.problem_statement === '' || req.body.input_format === ''
+        if (req.body.contestName === '' || req.body.problem_name === '' || req.body.problem_statement === '' || req.body.input_format === ''
             || req.body.output_format === '' || req.body.constraints === '' || req.body.sample_input === '' ||
             req.body.sample_output === '') {
             res.send('Fields should not empty');
@@ -171,27 +184,38 @@ app.post('/addchallenge', async (req, res) => {
                 await problemadd.save();
             }
             catch (err) {
-                const problemadd = await addProblem({
+                const problemadd = new addProblem({
                     contestName: req.body.contestName,
-                    problems:{
-                        problemName:req.body.problem_name,                
-                        problem_statement:req.body.problem_statement,
-                        input_format:req.body.input_format,
-                        ouput_format:req.body.output_format,
-                       constraints:req.body.constraints,                       
-                       sample_input:req.body.input_format,
-                       sample_output:req.body.sample_output,
-                       explanation:req.body.explaination
-                }
+                    problems: {
+                        problemName: req.body.problem_name,
+                        problem_statement: req.body.problem_statement,
+                        input_format: req.body.input_format,
+                        ouput_format: req.body.output_format,
+                        constraints: req.body.constraints,
+                        sample_input: req.body.input_format,
+                        sample_output: req.body.sample_output,
+                        explanation: req.body.explaination
+                    }
                 });
-                await problemadd.addProblem(req.body.problem_name, req.body.problem_statement, req.body.input_format, req.body.output_format, req.body.constraints, req.body.sample_input, req.body.sample_output, req.body.explaination);
                 await problemadd.save();
             }
+            const problems = await addProblem.find({ contestName: req.body.contestName },{_id:0}).select('problems');
+            var probname=[];
+            // console.log((problems[0].problems)[0].problemName);
+            for(var i=0;i<(problems[0].problems).length;i++)
+            {
+                probname.push((problems[0].problems)[i].problemName)
+            }
+            res.render('addchallengespage', {
+                contestName: req.body.contestName,
+                problems: probname
+            });
         }
 
     }
     catch (error) {
-        res.status(404).send('Page not found');
+        console.log(error);
+        res.status(404).send(error);
     }
 })
 app.listen(3000, () => {

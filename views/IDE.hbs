@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>IDE | CodeNow</title>
+</head>
+<style type="text/css">
+body{
+    background-color: lightgrey;
+
+}
+    textarea {
+  background: url(http://i.imgur.com/2cOaJ.png);
+  background-attachment: local;
+  background-repeat: no-repeat;
+  padding-left: 35px;
+  padding-top: 10px;
+  border-color: #ccc;
+  font-size: 13px;
+  line-height: 16px;
+
+}
+
+.textarea-wrapper {
+  display: inline-block;
+  background-image: linear-gradient(#F9F9F9 57%, #F9F9F9 50%);
+  background-size: 100% 32px;
+  background-position: left 10px;
+}
+#setide{
+    margin: 1rem 2rem 1rem 11rem;
+    padding: 2rem 2rem 2rem 2rem ;
+     background: #e0e0e0;
+     border-radius: 50px;
+     box-shadow: inset 35px 35px 70px #aaaaaa,
+            inset -35px -35px 70px #ffffff;
+    width: 62%;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #000000;
+    border-color: #1b1e23;
+}
+textarea{
+    resize: none;
+
+}
+.setform{
+    margin: 1rem 1rem 1rem 1rem;
+}
+
+ .alert{
+    position: relative;
+    padding: 1rem 1rem 10rem 1rem;
+    margin-bottom: 1rem;
+    margin-right: 15.5rem ;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+.form-select {
+    display: block;
+    width: 73%;
+    padding: .375rem 2.25rem .375rem .75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+   
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+</style>
+<body>
+    <!-- navbar -->
+       <nav class="navbar navbar-expand-lg navbar sticky-top navbar navbar-dark bg-dark ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="bootstrap.html">CodeNow</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="       #navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav me-auto ">
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contactus.html">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contests.html">Contests</a>
+          </li>
+        </ul>
+        <div class="mx-2">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="Landing_home.html">Logout</a>
+            </li>
+  
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<div id="setide">
+        <h3>CodeNow |<span class="badge badge-secondary">IDE</span></h3>
+     
+    <form class="setform"> 
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+  <option selected>Select Language</option>
+  <option value="1">C</option>
+  <option value="2">C++</option>
+  <option value="3">Java</option>
+   <option value="4">Python</option>
+</select>
+<hr>
+                <div class="textarea-wrapper">
+                    <textarea rows="25" cols="75" spellcheck="false"></textarea>
+                </div>
+
+                <br><br>
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit" class="btn btn-primary">Run</button>&nbsp&nbsp
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                </div>
+            
+    </form>
+  <div class="alert alert-warning" role="alert">
+  <h5>Output :</h5><br>
+   
+</div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+</html>

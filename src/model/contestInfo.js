@@ -1,5 +1,9 @@
 const mongoose=require('mongoose');
 const contestRegister=new mongoose.Schema({
+    email:{
+        type:String,
+        require:true
+    },
     contestName:{
         type:String,
         require:true,

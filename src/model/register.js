@@ -36,5 +36,5 @@ usersScheme.methods.generateAuthToken= async function(){
         console.log(err);
     }
 }
-const Register=new mongoose.model('Register',usersScheme);
+const Register=new mongoose.model('user',usersScheme);
 module.exports=Register;

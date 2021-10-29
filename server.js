@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 require('./src/db/connection');
 const Register = require('./src/model/register');
 const contestDetails = require('./src/model/contestInfo');
-const contestExtraInfo = require('./src/model/contestExtraInfo');
+// const contestExtraInfo = require('./src/model/contestExtraInfo');
+const submission = require('./src/model/submission');
 const app = express();
 const addProblem = require('./src/model/addProb');
 const cookieParser = require('cookie-parser');
@@ -31,18 +32,12 @@ app.get('/contactus', (req, res) => {
 app.get('/contests',async (req, res) => {
     try{
         const contestname=await contestDetails.find();
-        console.log(contestname);
-        var contestnames=[];
-        for(var i=0;i<contestname.length;i++)
-        {
-            contestnames.push(contestname[i]);
-        }
+        res.render('contests',{
+            contestnames: contestname
+        });
     }catch(error){
         
     }
-    res.render('contests',{
-        contestnames: contestnames
-    });
 });
 app.get('/login', (req, res) => {
     res.render('login.hbs');
@@ -87,7 +82,10 @@ app.post('/login', async (req, res) => {
                 expires: new Date(Date.now() + 604800000),
                 httpOnly: true
             });
-            res.render('landingpage');
+            console.log(req.body.email);
+            res.render('landingpage',{
+                email:req.body.email
+            });
         } else {
             res.send('Invalid credentials');
         }
@@ -103,11 +101,27 @@ app.post('/logout', auth, async (req, res) => {
     await req.user.save();
     res.render('home');
 });
-app.get('/contest_administration', (req, res) => {
-    res.render('contest_administration');
+app.post('/contest_administration',async (req, res) => {
+    try{
+        const contest=await contestDetails.find({email:req.body.email},{_id:0,__v:0});
+        console.log(JSON.stringify(contest));
+        console.log(req.body.email);
+        res.render('contest_administration',{
+            email:req.body.email,
+            contests:contest
+        });
+    }catch(error){
+        console.log(req.body.email);
+        res.render('contest_administration',{
+            email:req.body.email
+        });
+    }
+    
 });
-app.get('/contestform', (req, res) => {
-    res.render('contestform');
+app.post('/contestform', (req, res) => {
+    res.render('contestform',{
+        email:req.body.email
+    });
 });
 app.post('/contestRegistration', async (req, res) => {
     try {
@@ -116,6 +130,7 @@ app.post('/contestRegistration', async (req, res) => {
         }
         else {
             const contestDetail = new contestDetails({
+                email:req.body.email,
                 contestName: req.body.contestname,
                 contestStartDate: req.body.sdate,
                 contestEndDate: req.body.edate,
@@ -192,7 +207,7 @@ app.post('/addchallenge', async (req, res) => {
                         input_format: req.body.input_format,
                         ouput_format: req.body.output_format,
                         constraints: req.body.constraints,
-                        sample_input: req.body.input_format,
+                        sample_input: req.body.sample_input,
                         sample_output: req.body.sample_output,
                         explanation: req.body.explaination
                     }

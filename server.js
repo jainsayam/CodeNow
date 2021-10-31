@@ -29,14 +29,50 @@ app.get('/about', (req, res) => {
 app.get('/contactus', (req, res) => {
     res.render('contactus');
 });
-app.get('/contests',async (req, res) => {
-    try{
-        const contestname=await contestDetails.find();
-        res.render('contests',{
+app.get('/contests', async (req, res) => {
+    try {
+        const contestname = await contestDetails.find();
+        res.render('contests', {
             contestnames: contestname
         });
-    }catch(error){
-        
+    } catch (error) {
+        res.render('contests');
+    }
+});
+app.get('/contests/:contestname', (req, res) => {
+    console.log(req.params.contestname);
+});
+app.get('/contests/editcontest/:contestname', async (req, res) => {
+    try {
+        const problem = await addProblem.find({ contestName: req.params.contestname });
+
+        res.render('edit_problem', {
+            pro: problem
+        });
+    }
+    catch (err) {
+        console.log('hello');
+        console.log(err);
+    }
+});
+app.get('/contests/editcontest/editproblem/:probname', async (req, res) => {
+    try {
+        const prob = await addProblem.findOne({ problemName: req.params.probname });
+        console.log(prob);
+        res.render('editchallenge', {
+            contestName:prob.contestName,
+            problem_name: prob.problemName,
+            problem_statement: prob.problem_statement,
+            input_format: prob.input_format,
+            output_format: prob.ouput_format,
+            constraints: prob.constraints,
+            sample_input: prob.sample_input,
+            sample_output: prob.sample_output,
+            explaination: prob.explanation
+        });
+    }
+    catch (err) {
+        console.log(err);
     }
 });
 app.get('/login', (req, res) => {
@@ -82,9 +118,8 @@ app.post('/login', async (req, res) => {
                 expires: new Date(Date.now() + 604800000),
                 httpOnly: true
             });
-            console.log(req.body.email);
-            res.render('landingpage',{
-                email:req.body.email
+            res.render('landingpage', {
+                email: req.body.email
             });
         } else {
             res.send('Invalid credentials');
@@ -101,26 +136,23 @@ app.post('/logout', auth, async (req, res) => {
     await req.user.save();
     res.render('home');
 });
-app.post('/contest_administration',async (req, res) => {
-    try{
-        const contest=await contestDetails.find({email:req.body.email},{_id:0,__v:0});
-        console.log(JSON.stringify(contest));
-        console.log(req.body.email);
-        res.render('contest_administration',{
-            email:req.body.email,
-            contests:contest
+app.post('/contest_administration', async (req, res) => {
+    try {
+        const contest = await contestDetails.find({ email: req.body.email }, { _id: 0, __v: 0 });
+        res.render('contest_administration', {
+            email: req.body.email,
+            contests: contest
         });
-    }catch(error){
-        console.log(req.body.email);
-        res.render('contest_administration',{
-            email:req.body.email
+    } catch (error) {
+        res.render('contest_administration', {
+            email: req.body.email
         });
     }
-    
+
 });
 app.post('/contestform', (req, res) => {
-    res.render('contestform',{
-        email:req.body.email
+    res.render('contestform', {
+        email: req.body.email
     });
 });
 app.post('/contestRegistration', async (req, res) => {
@@ -130,7 +162,7 @@ app.post('/contestRegistration', async (req, res) => {
         }
         else {
             const contestDetail = new contestDetails({
-                email:req.body.email,
+                email: req.body.email,
                 contestName: req.body.contestname,
                 contestStartDate: req.body.sdate,
                 contestEndDate: req.body.edate,
@@ -194,37 +226,34 @@ app.post('/addchallenge', async (req, res) => {
         }
         else {
             try {
-                const problemadd = await addProblem.findOne({ contestName: req.body.contestName });
-                await problemadd.addProblem(req.body.problem_name, req.body.problem_statement, req.body.input_format, req.body.output_format, req.body.constraints, req.body.sample_input, req.body.sample_output, req.body.explaination);
-                await problemadd.save();
-            }
-            catch (err) {
                 const problemadd = new addProblem({
                     contestName: req.body.contestName,
-                    problems: {
-                        problemName: req.body.problem_name,
-                        problem_statement: req.body.problem_statement,
-                        input_format: req.body.input_format,
-                        ouput_format: req.body.output_format,
-                        constraints: req.body.constraints,
-                        sample_input: req.body.sample_input,
-                        sample_output: req.body.sample_output,
-                        explanation: req.body.explaination
-                    }
+                    problemName: req.body.problem_name,
+                    problem_statement: req.body.problem_statement,
+                    input_format: req.body.input_format,
+                    ouput_format: req.body.output_format,
+                    constraints: req.body.constraints,
+                    sample_input: req.body.sample_input,
+                    sample_output: req.body.sample_output,
+                    explanation: req.body.explaination
                 });
+                console.log(problemadd);
                 await problemadd.save();
+                console.log(req.body.contestName);
+                const problems = await addProblem.find({ contestName: req.body.contestName });
+                console.log(problems);
+                res.render('addchallengespage', {
+                    contestName: req.body.contestName,
+                    problems: problems
+                });
             }
-            const problems = await addProblem.find({ contestName: req.body.contestName },{_id:0}).select('problems');
-            var probname=[];
-            // console.log((problems[0].problems)[0].problemName);
-            for(var i=0;i<(problems[0].problems).length;i++)
-            {
-                probname.push((problems[0].problems)[i].problemName)
+            catch (err) {
+                console.log(err);
+                res.render('addchallengespage', {
+                    contestName: req.body.contestName,
+                    problems: []
+                });
             }
-            res.render('addchallengespage', {
-                contestName: req.body.contestName,
-                problems: probname
-            });
         }
 
     }
@@ -232,7 +261,30 @@ app.post('/addchallenge', async (req, res) => {
         console.log(error);
         res.status(404).send(error);
     }
-})
+});
+app.post('/updateproblem',async (req, res) => {
+    try{
+    await addProblem.updateOne({ name: req.body.problemName },
+        {
+            problemName: req.body.problem_name,
+            problem_statement: req.body.problem_statement,
+            input_format: req.body.input_format,
+            ouput_format: req.body.output_format,
+            constraints: req.body.constraints,
+            sample_input: req.body.sample_input,
+            sample_output: req.body.sample_output,
+            explanation: req.body.explaination
+        });
+        const problem = await addProblem.find({ contestName: req.body.contestName });
+
+        res.render('edit_problem', {
+            pro: problem
+        });
+    }catch(err)
+    {
+        console.log(err);
+    }
+});
 app.listen(3000, () => {
     console.log('server is running in http:localhost:3000');
 });

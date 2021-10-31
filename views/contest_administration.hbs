@@ -92,23 +92,12 @@
     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
       aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
   </div>
-  <!-- progress bar ends -->
-
-  <!-- bradcrumb -->
-
-
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/home">Home</a></li>
       <li class="breadcrumb-item active" aria-current="page">Contest Administration </li>
     </ol>
   </nav>
-
-
-
-  <!-- breadcrumb ends -->
-  <!-- Administration -->
-  <!-- don't worry abt css classes they will work accordingly -->
   <h4 class="text-center">Manage Contest</h4>
   <form action="/contestform" method="POST">
     <input type="hidden" name="email" value="{{email}}" />
@@ -127,10 +116,7 @@
       <td>{{this.contestName}}</td>
       <td>{{this.contestStartDate}} & {{this.startingTime}}</td>
       <td>{{this.contestEndDate}} & {{this.endingTime}}</td>
-      <form action="editContest" method="POST">
-        <input name="contestName" value="{{this.contestName}}" />
-        <td><input type="submit" value="Go to contest" /> </td>
-      </form>
+        <td><a href="contests/editcontest/{{this.contestName}}">Go to contest</a></td>
     </tr>
     {{/each}}
   </table>

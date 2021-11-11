@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const child_process=require('child_process');
 require('./src/db/connection');
 const Register = require('./src/model/register');
 const contestDetails = require('./src/model/contestInfo');
@@ -39,11 +40,9 @@ app.get('/contests', async (req, res) => {
         res.render('contests');
     }
 });
-app.get('/contests/:contestname', (req, res) => {
-    console.log(req.params.contestname);
-});
 app.get('/contests/editcontest/:contestname', async (req, res) => {
     try {
+        console.log(req.params);
         const problem = await addProblem.find({ contestName: req.params.contestname });
 
         res.render('edit_problem', {
@@ -64,17 +63,56 @@ app.get('/contests/editcontest/editproblem/:probname', async (req, res) => {
             problem_name: prob.problemName,
             problem_statement: prob.problem_statement,
             input_format: prob.input_format,
-            output_format: prob.ouput_format,
+            output_format: prob.output_format,
             constraints: prob.constraints,
             sample_input: prob.sample_input,
             sample_output: prob.sample_output,
-            explaination: prob.explanation
+            explanation: prob.explanation
         });
     }
     catch (err) {
         console.log(err);
     }
 });
+app.get('/contests/:contestname/:problemname',async (req, res) => {
+    console.log(req.params);
+    try {
+        const problems= await addProblem.find({
+            problemName:req.params.problemname
+        });
+        console.log(problems[0]);
+        res.render('ide',{
+            problem_name:problems[0].problemName,
+            problem_statement:problems[0].problem_statement,
+            input_format:problems[0].input_format,
+            output_format:problems[0].output_format,
+            constraints:problems[0].constraints,
+            sample_input:problems[0].sample_input,
+            sample_output:problems[0].sample_output,
+            explanation:problems[0].explanation
+        });
+    
+    } catch (error) {
+        console.log(error);
+    }
+
+});
+app.get('/contests/:contestname',async (req, res) => {
+    
+    try {
+        const problems= await addProblem.find({
+            problem: req.params.contestname
+        });
+        res.render('problem_shown',{
+            problem:problems
+        });
+    
+    } catch (error) {
+        console.log(error);
+    }
+    
+});
+
 app.get('/login', (req, res) => {
     res.render('login.hbs');
 });
@@ -226,12 +264,15 @@ app.post('/addchallenge', async (req, res) => {
         }
         else {
             try {
+                var st=req.body.problem_statement;
+                st.replace("\n", "<br/>");
+                console.log(st);
                 const problemadd = new addProblem({
                     contestName: req.body.contestName,
                     problemName: req.body.problem_name,
-                    problem_statement: req.body.problem_statement,
+                    problem_statement: st,
                     input_format: req.body.input_format,
-                    ouput_format: req.body.output_format,
+                    output_format: req.body.output_format,
                     constraints: req.body.constraints,
                     sample_input: req.body.sample_input,
                     sample_output: req.body.sample_output,
@@ -264,12 +305,14 @@ app.post('/addchallenge', async (req, res) => {
 });
 app.post('/updateproblem',async (req, res) => {
     try{
+        var st=req.body.problem_statement;
+        st.replace(/\n/g, "<br/>");
     await addProblem.updateOne({ name: req.body.problemName },
         {
             problemName: req.body.problem_name,
-            problem_statement: req.body.problem_statement,
+            problem_statement:st ,
             input_format: req.body.input_format,
-            ouput_format: req.body.output_format,
+            output_format: req.body.output_format,
             constraints: req.body.constraints,
             sample_input: req.body.sample_input,
             sample_output: req.body.sample_output,
@@ -284,6 +327,16 @@ app.post('/updateproblem',async (req, res) => {
     {
         console.log(err);
     }
+});
+app.post("/submitCode",(req,res)=>{
+    var day   = new Date().getDate();
+    var month = new Date().getMonth();
+    var year  = new Date().getFullYear();
+    var hour  = new Date().getHours();
+    var min   = new Date().getMinutes();
+    var sec   = new Date().getSeconds();
+    var code  = req.body.code;
+
 });
 app.listen(3000, () => {
     console.log('server is running in http:localhost:3000');

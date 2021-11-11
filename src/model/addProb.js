@@ -17,7 +17,7 @@ const ProblemSchema=new mongoose.Schema({
         type:String,
         require:true
     },
-    ouput_format:{
+    output_format:{
        type:String,
        require:true
    },

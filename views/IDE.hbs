@@ -168,31 +168,31 @@
             </button>
             <li class="list-group-item list-group-item-info">
                 <h5>Problem statement</h5>
-                <p>{{problem_statement}}</p>
+                <pre>{{problem_statement}}</pre>
             </li>
             <li class="list-group-item list-group-item-light">
                 <h5>Input Format</h5>
-                <p> {{input_format}}</p>
+                <pre> {{input_format}}</pre>
             </li>
             <li class="list-group-item list-group-item-light">
                 <h5>Output Format</h5>
-                <p> {{output_format}}</p>
+                <pre> {{output_format}}</pre>
             </li>
             <li class="list-group-item list-group-item-light">
                 <h5>Constraints</h5>
-                <p> {{constraints}} </p>
+                <pre> {{constraints}} </pre>
             </li>
             <li class="list-group-item list-group-item-light">
                 <h5>Sample Input</h5>
-                <p> {{sample_input}} </p>
+                <pre> {{sample_input}} </pre>
             </li>
             <li class="list-group-item list-group-item-light">
                 <h5>Sample Output</h5>
-                <p> {{sample_output}} </p>
+                <pre> {{sample_output}} </pre>
             </li>
             <li class="list-group-item list-group-item-dark">
                 <h5>Explnation</h5>
-                <p>{{explanation}}</p>
+                <pre>{{explanation}}</pre>
                 </li>
         </ul>
     </section>
@@ -200,16 +200,20 @@
     <!-- part2 -->
     <div id="setide" class="box">
         <form action="/submitCode" method="POST" class="setform">
+        <input type="hidden" name="problem_name" value="{{problem_name}}">
             <select class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <option value="2" selected>C++</option>
             </select>
             <div class="textarea-wrapper">
                 <textarea rows="25" cols="75" spellcheck="false" name="code">
-#include <iostream>
-
-int main() {
-    std::cout << "Hello World!";
-    return 0;
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int t;cin>>t;
+    for(int i=t;i<t+5;i++)
+    {
+        cout<<i<<' ';
+    }
 }</textarea>
             </div>
             <div class="btn-group" role="group" aria-label="Basic example">

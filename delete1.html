@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- bootstrap link -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <title>Contest Form | CodeNow</title>
+</head>
+
+<style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital@1&family=El+Messiri:wght@600&family=Lato&family=Mochiy+Pop+One&family=Open+Sans:wght@500&family=Playfair+Display:ital@0;1&family=Poppins:wght@300&family=Quicksand:wght@300;600&family=Zen+Antique&display=swap');
+
+body{
+  background: #A7ACB1;
+}
+  .setform {
+    border-radius: 50px;
+    width: 43rem;
+    margin: 2rem 0rem;
+    padding: 0rem 3rem;
+    transition: all 3s;
+  }
+
+input{
+  width: 14rem;
+  border-radius: 5px;
+  border: 1px solid indigo;
+  background: #dedede;
+}
+
+  .elementset {
+
+    width: 400px;
+    margin: 10px 10px;
+    padding: 10px 10px;
+  }
+
+  .sethead {
+    color: rgb(36, 19, 19);
+    margin: 0rem 4rem;
+    transition: all 2s;
+    font-family: 'Bitter', sans-serif;
+  }
+
+  .sethead:hover {
+    color: green;
+  }
+
+  .variation2 span {
+    font-size: 2rem;
+  }
+
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0;
+    margin-bottom: 1rem;
+    list-style: none;
+    background: lightgrey;
+  }
+
+textarea{
+  width: 28rem;
+  border: 1px solid indigo;
+  border-radius: 10px;
+ background: #dedede;
+}
+
+  label {
+    color: rgb(19, 9, 9);
+     font-family: 'Bitter', sans-serif;
+  }
+
+  img{
+    width: 48rem;
+    height: 50rem;
+    margin: -93rem 0rem 1rem 36rem;
+  }
+
+  hr{
+       width: 30rem;     
+       margin-left: 1rem;    
+  }
+  hr:not([size]){
+    height: 3px;
+}
+</style>
+
+<body>
+
+  <!-- navbar starts -->
+  <nav class="navbar navbar-expand-lg navbar sticky-top navbar navbar-dark bg-dark ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/home">CodeNow</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="       #navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav me-auto ">
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contactus">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contests">Contests</a>
+          </li>
+        </ul>
+        <div class="mx-2">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="/landingpage">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- navbar ends -->
+  <!-- bradcrumb -->
+
+<br>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/home">Home </a></li>
+      <li class="breadcrumb-item"><a href="/contest_administration">Contest Administration</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Contest Form </li>
+    </ol>
+  </nav>
+
+
+
+  <!-- breadcrumb ends -->
+  <!-- form start -->
+  <br>
+  <h3 class="sethead"> Submit your information</h3>
+<hr>
+  <div class="setform">
+    <form action="contestRegistration" method="POST">
+      <input type="hidden" name="email" value="{{email}}" />
+      <div class="elementset">
+        <label for="fname">Contest name :</label>
+        <input type="text" id="contestname" name="contestname">
+      </div>
+      <div class="elementset">
+        <label for="sdate">Starting Date :</label>
+        <input type="date" id="sdate" name="sdate">
+      </div>
+      <div class="elementset">
+        <label for="stime">Starting time :</label>
+        <input type="time" id="appt" name="stime">
+      </div>
+      <div class="elementset">
+        <label for="fdate">Ending Date :</label>
+        <input type="date" id="fdate" name="edate">
+      </div>
+      <div class="elementset">
+        <label for="ftime">Ending time :</label>
+        <input type="time" id="appt" name="etime">
+      </div>
+      <div class="elementset">
+        <label for="orgname">Orgaization name :</label>
+        <input type="text" id="orgname" name="orgname">
+      </div>
+       <div class="elementset">
+        <label for="orgname">Score For Question :</label>
+        <input type="text" id="score" name="score" placeholder="100 or 200 for each ques.">
+      </div>
+      
+      <div class="elementset">
+        <label for="orgname">Description of Contest :</label>
+        <textarea name="message" class="message" rows="8" cols="40"
+          placeholder="Enter the contest information"></textarea>
+      </div>
+        <div class="elementset">
+        <label for="orgname">Prizes or Next Round reward:</label>
+        <textarea name="message" class="message" rows="8" cols="40"
+          placeholder="Enter the Prizes or next round details"></textarea>
+      </div>
+        <div class="elementset">
+        <label for="orgname">Rules for the contest :</label>
+        <textarea name="message" class="message" rows="8" cols="40"
+          placeholder="enter the rules"></textarea>
+      </div>
+  
+      <input type="submit" class="btn btn-success  btn-center" value="Submit">
+    </form>
+  </div>
+  </form>
+  </div>
+  <!-- forends -->
+<img src="./images/business.png " alt="here">
+
+
+
+
+
+  <!-- bootstrap js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

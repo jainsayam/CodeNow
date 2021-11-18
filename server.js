@@ -75,7 +75,7 @@ app.get('/contests/editcontest/editproblem/:probname',checklogin, async (req, re
             constraints: prob.constraints,
             sample_input: prob.sample_input,
             sample_output: prob.sample_output,
-            explanation: prob.explanation
+            explaination: prob.explanation
         });
     } catch (err) {
         console.log(err);
@@ -152,7 +152,7 @@ app.post('/register', async (req, res) => {
         res.status(400).send(err);
     }
 });
-app.post('/login',checklogin, async (req, res) => {
+app.post('/login', async (req, res) => {
     try {
         const email = req.body.email,
             password = req.body.password;
@@ -176,7 +176,7 @@ app.post('/login',checklogin, async (req, res) => {
         res.send(error);
     }
 });
-app.post('/logout', auth, async (req, res) => {
+app.all('/logout', auth,async (req, res) => {
     req.user.tokens = await req.user.tokens.filter((currToken) => {
         return req.token !== currToken.token;
     });
@@ -280,14 +280,23 @@ app.post('/addchallenge', checklogin,async (req, res) => {
                 console.log(st);
                 const problemadd = new addProblem({
                     contestName: req.body.contestName,
-                    problemName: req.body.problem_name,
+                    problemName: (req.body.problem_name).replace(' ',''),
                     problem_statement: st,
                     input_format: req.body.input_format,
                     output_format: req.body.output_format,
                     constraints: req.body.constraints,
                     sample_input: req.body.sample_input,
                     sample_output: req.body.sample_output,
-                    explanation: req.body.explaination
+                    explanation: req.body.explaination,
+                    testcase1:req.body.testcase1,
+                    testcase2:req.body.testcase2,
+                    testcase3:req.body.testcase3,
+                    testcase4:req.body.testcase4,
+                    testcaseo1:req.body.testcaseo1,
+                    testcaseo2:req.body.testcaseo2,
+                    testcaseo3:req.body.testcaseo3,
+                    testcaseo4:req.body.testcaseo4,
+                    score:req.body.score
                 });
                 console.log(problemadd);
                 await problemadd.save();
@@ -342,6 +351,7 @@ app.post('/updateproblem',checklogin, async (req, res) => {
 });
 app.post("/submitCode",checklogin, async (req, res) => {
     try {
+        var fulltime=new Date();
         var day = new Date().getDate();
         var month = new Date().getMonth();
         var year = new Date().getFullYear();
@@ -355,12 +365,16 @@ app.post("/submitCode",checklogin, async (req, res) => {
         var filename = `${verifyUser._id}-${req.body.problem_name}`;
         var inputfilename = `./input/${verifyUser._id}-${req.body.problem_name}}`;
         fs.writeFileSync(`./users_code/${filename}.cpp`, code.toString());
-        var ans = ["1 2 3 4 5", "6 7 8 9 10"];
-        var input = ["1", "6"];
+        var testcase=await addProblem.find({problemName:req.body.problem_name});
+        var input = [testcase[0].testcase1,testcase[0].testcase2,testcase[0].testcase3,testcase[0].testcase4];
+        var ans = [testcase[0].testcaseo1,testcase[0].testcaseo2,testcase[0].testcaseo3,testcase[0].testcaseo4];
         var result = true;
+        console.log(ans);
+        console.log(input);
         var reqpath = path.join(__dirname);
         var filepath = path.join(reqpath, 'users_code', filename);
         for (var i = 0; i < input.length; i++) {
+            console.log(ans[i]);
             fs.writeFileSync(`${inputfilename}.txt`, input[i].toString());
             // console.log(input[i].toString());
             var newpath = reqpath;
@@ -420,7 +434,59 @@ app.post("/submitCode",checklogin, async (req, res) => {
             }
         }
         if (result) {
-            res.send("Accepted");
+            const findmail=await Register.findOne({_id:verifyUser._id});
+            const findscore=await addProblem.findOne({problemName:req.body.problem_name});
+            console.log(findmail.email);
+            var pastscore=undefined;
+            var pasts=0;
+            try{
+                pastscore=await submission.findOne({email:findmail.email,contestName:findscore.contestName})
+                console.log(pastscore.problem_names);
+                var exist=false;
+                pasts=pastscore.score;
+                for(var i=0;i<(pastscore.problem_names).length;i++)
+                {
+                    if(req.body.problem_name===(pastscore.problem_names)[0].name)
+                    {
+                        console.log('hello');
+                        exist=true;
+                        break;
+                    }
+                }
+                if(!exist)pastscore.addNameOf(req.body.problem_name);
+
+                if(!exist){await submission.updateOne(
+                    {
+                        email:findmail.email,contestName:findscore.contestName
+                    },
+                    {
+                        email:findmail.email,
+                        submittedCode:req.body.code,
+                        status:Boolean(result),
+                        timeOfSubmission:fulltime,
+                        score:(parseInt(pasts)+parseInt(findscore.score)),
+                    }
+                )}
+            }
+            catch(err)
+            {
+                    var subm=new submission({
+                    email:findmail.email,
+                    submittedCode:req.body.code,
+                    status:Boolean(result),
+                    timeOfSubmission:fulltime,
+                    score:(parseInt(pasts)+parseInt(findscore.score)),
+                    contestName:findscore.contestName
+                });
+                subm.problem_names=subm.problem_names.concat({name:req.body.problem_name});
+                await subm.save();
+            }
+            const problems = await addProblem.find({
+                    problem: findscore.contestName
+                });
+                res.render('problem_shown', {
+                    problem: problems
+                });
         } else {
             res.send("Wrong Answer");
         }

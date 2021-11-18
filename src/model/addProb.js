@@ -9,6 +9,10 @@ const ProblemSchema=new mongoose.Schema({
         require:true,
         unique:true
     },
+    score:{
+        type:String,
+        require:true
+    },
     problem_statement:{
         type:String,
         require:true
@@ -35,6 +39,38 @@ const ProblemSchema=new mongoose.Schema({
        require:true
    },
    explanation:{
+       type:String,
+       require:true
+   },
+   testcase1:{
+       type:String,
+       require:true
+   },
+   testcase2:{
+       type:String,
+       require:true
+   },
+   testcase3:{
+       type:String,
+       require:true
+   },
+   testcase4:{
+       type:String,
+       require:true
+   },
+   testcaseo1:{
+       type:String,
+       require:true
+   },
+   testcaseo2:{
+       type:String,
+       require:true
+   },
+   testcaseo3:{
+       type:String,
+       require:true
+   },
+   testcaseo4:{
        type:String,
        require:true
    }

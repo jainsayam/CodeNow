@@ -186,6 +186,15 @@
 </head>
 
 <body>
+  {{#if accepted}}
+      <script>alert("Accepted Answer");</script>
+    {{else}}
+      {{#if giveornot}}
+      <script>alert("Wrong Answer");</script>
+      {{/if}}
+  {{/if}}
+
+
   <!-- navbar -->
   <nav class="navbar navbar-expand-lg navbar sticky-top navbar navbar-dark bg-dark ">
     <div class="container-fluid">
@@ -206,10 +215,7 @@
         <div class="mx-2">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/login">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link " href="/signup">SignUp</a>
+              <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
             </li>
           </ul>
         </div>

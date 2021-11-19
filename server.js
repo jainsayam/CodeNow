@@ -153,10 +153,13 @@ app.get('/contests/:contestname/:problemname', checklogin, async (req, res) => {
 app.get('/contests/:contestname', checklogin, async (req, res) => {
 
     try {
+        console.log(req.params);
         const problems = await addProblem.find({
-            problem: req.params.contestname
+            contestName: req.params.contestname
         });
+        console.log(problems);
         res.render('problem_shown', {
+            giveornot:false,
             problem: problems,
             contestName: req.params.contestname
         });
@@ -166,7 +169,6 @@ app.get('/contests/:contestname', checklogin, async (req, res) => {
     }
 
 });
-
 app.get('/login', (req, res) => {
     res.render('login.hbs');
 });
@@ -432,7 +434,7 @@ app.post("/submitCode", checklogin, async (req, res) => {
         var reqpath = path.join(__dirname);
         var filepath = path.join(reqpath, 'users_code', filename);
         for (var i = 0; i < input.length; i++) {
-            console.log(ans[i]);
+            // console.log(ans[i]);
             fs.writeFileSync(`${inputfilename}.txt`, input[i].toString());
             // console.log(input[i].toString());
             var newpath = reqpath;
@@ -458,7 +460,7 @@ app.post("/submitCode", checklogin, async (req, res) => {
                 // F:\React\TryForIde\test < ./input.txt
                 // console.log('hello');
                 var newcmd = `${__dirname}/users_code/${filename} < ${__dirname}${inputfilename}.txt`
-                console.log('newcmd: ', newcmd);
+                // console.log('newcmd: ', newcmd);
                 var start = performance.now();
                 var child1 = sh.spawnSync(newcmd, {
                     shell: true
@@ -544,14 +546,74 @@ app.post("/submitCode", checklogin, async (req, res) => {
                 await subm.save();
             }
             const problems = await addProblem.find({
-                problem: findscore.contestName
+                contestName: findscore.contestName
             });
             res.render('problem_shown', {
+                accepted: true,
                 problem: problems,
                 contestName: findscore.contestName
             });
         } else {
-            res.send("Wrong Answer");
+            const findmail = await Register.findOne({
+                _id: verifyUser._id
+            });
+            const findscore = await addProblem.findOne({
+                problemName: req.body.problem_name
+            });
+            console.log(findmail.email);
+            var pastscore = undefined;
+            var pasts = 0;
+            try {
+                pastscore = await submission.findOne({
+                    email: findmail.email,
+                    contestName: findscore.contestName
+                })
+                console.log(pastscore.problem_names);
+                var exist = false;
+                pasts = pastscore.score;
+                for (var i = 0; i < (pastscore.problem_names).length; i++) {
+                    if (req.body.problem_name === (pastscore.problem_names)[0].name) {
+                        exist = true;
+                        break;
+                    }
+                }
+                if (!exist) pastscore.addNameOf(req.body.problem_name);
+
+                if (!exist) {
+                    await submission.updateOne({
+                        email: findmail.email,
+                        contestName: findscore.contestName
+                    }, {
+                        email: findmail.email,
+                        submittedCode: req.body.code,
+                        status: Boolean(result),
+                        timeOfSubmission: fulltime,
+                        score: (parseInt(pasts) + parseInt(findscore.score)),
+                    })
+                }
+            } catch (err) {
+                var subm = new submission({
+                    email: findmail.email,
+                    submittedCode: req.body.code,
+                    status: Boolean(result),
+                    timeOfSubmission: fulltime,
+                    score: (parseInt(pasts) + parseInt(0)),
+                    contestName: findscore.contestName
+                });
+                subm.problem_names = subm.problem_names.concat({
+                    name: req.body.problem_name
+                });
+                await subm.save();
+            }
+            const problems = await addProblem.find({
+                problem: findscore.contestName
+            });
+            res.render('problem_shown', {
+                accepted: false,
+                giveornot:true,
+                problem: problems,
+                contestName: findscore.contestName
+            });
         }
     } catch (err) {
         console.log(err);

@@ -3,7 +3,6 @@ const jwt=require('jsonwebtoken');
 const checklogin=async (req,res,next) => {
     try {
         const token=req.cookies.jwt;
-        console.log(token);
         if(!token)
         {
             return res.status(200).render('home');

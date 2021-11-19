@@ -14,7 +14,7 @@ const app = express();
 const addProblem = require('./src/model/addProb');
 const cookieParser = require('cookie-parser');
 const auth = require('./src/middleware/auth');
-const checklogin=require('./src/middleware/checklogin');
+const checklogin = require('./src/middleware/checklogin');
 const static_path = path.join(__dirname, "/public");
 app.set('view engine', 'hbs');
 app.use(express.static(static_path));
@@ -23,7 +23,13 @@ app.use(cookieParser());
 app.use(express.urlencoded({
     extended: false
 }));
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+    if (req.cookies.jwt) {
+        const contestname = await contestDetails.find();
+        return res.render('contests', {
+            contestnames: contestname
+        });
+    }
     res.render('home');
 });
 app.get('/home', (req, res) => {
@@ -32,10 +38,10 @@ app.get('/home', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about');
 });
-app.get('/contactus',checklogin, (req, res) => {
+app.get('/contactus', checklogin, (req, res) => {
     res.render('contactus');
 });
-app.get('/contests', checklogin,async (req, res) => {
+app.get('/contests', checklogin, async (req, res) => {
     try {
         const contestname = await contestDetails.find();
         res.render('contests', {
@@ -45,7 +51,7 @@ app.get('/contests', checklogin,async (req, res) => {
         res.render('contests');
     }
 });
-app.get('/contests/editcontest/:contestname',checklogin, async (req, res) => {
+app.get('/contests/editcontest/:contestname', checklogin, async (req, res) => {
     try {
         console.log(req.params);
         const problem = await addProblem.find({
@@ -60,7 +66,7 @@ app.get('/contests/editcontest/:contestname',checklogin, async (req, res) => {
         console.log(err);
     }
 });
-app.get('/contests/editcontest/editproblem/:probname',checklogin, async (req, res) => {
+app.get('/contests/editcontest/editproblem/:probname', checklogin, async (req, res) => {
     try {
         const prob = await addProblem.findOne({
             problemName: req.params.probname
@@ -75,13 +81,53 @@ app.get('/contests/editcontest/editproblem/:probname',checklogin, async (req, re
             constraints: prob.constraints,
             sample_input: prob.sample_input,
             sample_output: prob.sample_output,
-            explaination: prob.explanation
+            explaination: prob.explanation,
+            testcase1: prob.testcase1,
+            testcase2: prob.testcase2,
+            testcase3: prob.testcase3,
+            testcase4: prob.testcase4,
+            testcaseo1: prob.testcaseo1,
+            testcaseo2: prob.testcaseo2,
+            testcaseo3: prob.testcaseo3,
+            testcaseo4: prob.testcaseo4,
+            score: prob.score
         });
     } catch (err) {
         console.log(err);
     }
 });
-app.get('/contests/:contestname/:problemname',checklogin, async (req, res) => {
+app.post('/ranking', async (req, res) => {
+    try {
+        // const ans = await submission.find({
+        //     contestName: req.body.contestName
+        // }).
+        // sort([[{
+        //     score: -1
+        // }]]).
+        // exec(function (err, docs) {
+        //     if (err) {
+        //         console.log(err);
+        //     } else {
+        //         console.log(docs);
+        //     }
+        // });
+        console.log(req.body.contestName);
+        submission.find({
+            contestName: req.body.contestName
+        }).sort([
+            ['score', -1]
+        ]).exec(function (err, docs) {
+            console.log(docs);
+            res.render('ranking', {
+                ans: docs
+            });
+        });
+        // console.log(ans);
+    } catch (err) {
+        console.log(err);
+    }
+})
+app.get('/contests/:contestname/:problemname', checklogin, async (req, res) => {
     console.log(req.params);
     try {
         const problems = await addProblem.find({
@@ -104,14 +150,15 @@ app.get('/contests/:contestname/:problemname',checklogin, async (req, res) => {
     }
 
 });
-app.get('/contests/:contestname',checklogin, async (req, res) => {
+app.get('/contests/:contestname', checklogin, async (req, res) => {
 
     try {
         const problems = await addProblem.find({
             problem: req.params.contestname
         });
         res.render('problem_shown', {
-            problem: problems
+            problem: problems,
+            contestName: req.params.contestname
         });
 
     } catch (error) {
@@ -176,7 +223,7 @@ app.post('/login', async (req, res) => {
         res.send(error);
     }
 });
-app.all('/logout', auth,async (req, res) => {
+app.all('/logout', auth, async (req, res) => {
     req.user.tokens = await req.user.tokens.filter((currToken) => {
         return req.token !== currToken.token;
     });
@@ -184,7 +231,7 @@ app.all('/logout', auth,async (req, res) => {
     await req.user.save();
     res.render('home');
 });
-app.post('/contest_administration',checklogin, async (req, res) => {
+app.post('/contest_administration', checklogin, async (req, res) => {
     try {
         const contest = await contestDetails.find({
             email: req.body.email
@@ -203,12 +250,12 @@ app.post('/contest_administration',checklogin, async (req, res) => {
     }
 
 });
-app.post('/contestform',checklogin, (req, res) => {
+app.post('/contestform', checklogin, (req, res) => {
     res.render('contestform', {
         email: req.body.email
     });
 });
-app.post('/contestRegistration',checklogin, async (req, res) => {
+app.post('/contestRegistration', checklogin, async (req, res) => {
     try {
         if (req.body.contestname === '' || req.body.sdate === '' || req.body.stime === '' || req.body.stime === '' || req.body.edate === '' || req.body.etime === '' || req.body.orgname === '') {
             res.send('Fields should not empty');
@@ -236,7 +283,7 @@ app.post('/contestRegistration',checklogin, async (req, res) => {
         res.status(400).send(err);
     }
 });
-app.post('/contestDescription',checklogin, async (req, res) => {
+app.post('/contestDescription', checklogin, async (req, res) => {
     try {
         const contestExra = new contestExtraInfo({
 
@@ -258,7 +305,7 @@ app.post('/contestDescription',checklogin, async (req, res) => {
         res.status(404).send('Page not found');
     }
 });
-app.post('/createchallenge',checklogin, (req, res) => {
+app.post('/createchallenge', checklogin, (req, res) => {
     try {
         res.render('createchallenge', {
             contestName: req.body.contestName
@@ -268,7 +315,7 @@ app.post('/createchallenge',checklogin, (req, res) => {
     }
 });
 
-app.post('/addchallenge', checklogin,async (req, res) => {
+app.post('/addchallenge', checklogin, async (req, res) => {
     try {
         if (req.body.contestName === '' || req.body.problem_name === '' || req.body.problem_statement === '' || req.body.input_format === '' ||
             req.body.output_format === '' || req.body.constraints === '' || req.body.sample_input === '' ||
@@ -280,7 +327,7 @@ app.post('/addchallenge', checklogin,async (req, res) => {
                 console.log(st);
                 const problemadd = new addProblem({
                     contestName: req.body.contestName,
-                    problemName: (req.body.problem_name).replace(' ',''),
+                    problemName: (req.body.problem_name).replace(' ', ''),
                     problem_statement: st,
                     input_format: req.body.input_format,
                     output_format: req.body.output_format,
@@ -288,15 +335,15 @@ app.post('/addchallenge', checklogin,async (req, res) => {
                     sample_input: req.body.sample_input,
                     sample_output: req.body.sample_output,
                     explanation: req.body.explaination,
-                    testcase1:req.body.testcase1,
-                    testcase2:req.body.testcase2,
-                    testcase3:req.body.testcase3,
-                    testcase4:req.body.testcase4,
-                    testcaseo1:req.body.testcaseo1,
-                    testcaseo2:req.body.testcaseo2,
-                    testcaseo3:req.body.testcaseo3,
-                    testcaseo4:req.body.testcaseo4,
-                    score:req.body.score
+                    testcase1: req.body.testcase1,
+                    testcase2: req.body.testcase2,
+                    testcase3: req.body.testcase3,
+                    testcase4: req.body.testcase4,
+                    testcaseo1: req.body.testcaseo1,
+                    testcaseo2: req.body.testcaseo2,
+                    testcaseo3: req.body.testcaseo3,
+                    testcaseo4: req.body.testcaseo4,
+                    score: req.body.score
                 });
                 console.log(problemadd);
                 await problemadd.save();
@@ -323,7 +370,7 @@ app.post('/addchallenge', checklogin,async (req, res) => {
         res.status(404).send(error);
     }
 });
-app.post('/updateproblem',checklogin, async (req, res) => {
+app.post('/updateproblem', checklogin, async (req, res) => {
     try {
         var st = req.body.problem_statement;
         await addProblem.updateOne({
@@ -336,7 +383,16 @@ app.post('/updateproblem',checklogin, async (req, res) => {
             constraints: req.body.constraints,
             sample_input: req.body.sample_input,
             sample_output: req.body.sample_output,
-            explanation: req.body.explaination
+            explanation: req.body.explaination,
+            testcase1: req.body.testcase1,
+            testcase2: req.body.testcase2,
+            testcase3: req.body.testcase3,
+            testcase4: req.body.testcase4,
+            testcaseo1: req.body.testcaseo1,
+            testcaseo2: req.body.testcaseo2,
+            testcaseo3: req.body.testcaseo3,
+            testcaseo4: req.body.testcaseo4,
+            score: req.body.score
         });
         const problem = await addProblem.find({
             contestName: req.body.contestName
@@ -349,9 +405,9 @@ app.post('/updateproblem',checklogin, async (req, res) => {
         console.log(err);
     }
 });
-app.post("/submitCode",checklogin, async (req, res) => {
+app.post("/submitCode", checklogin, async (req, res) => {
     try {
-        var fulltime=new Date();
+        var fulltime = new Date();
         var day = new Date().getDate();
         var month = new Date().getMonth();
         var year = new Date().getFullYear();
@@ -365,9 +421,11 @@ app.post("/submitCode",checklogin, async (req, res) => {
         var filename = `${verifyUser._id}-${req.body.problem_name}`;
         var inputfilename = `./input/${verifyUser._id}-${req.body.problem_name}}`;
         fs.writeFileSync(`./users_code/${filename}.cpp`, code.toString());
-        var testcase=await addProblem.find({problemName:req.body.problem_name});
-        var input = [testcase[0].testcase1,testcase[0].testcase2,testcase[0].testcase3,testcase[0].testcase4];
-        var ans = [testcase[0].testcaseo1,testcase[0].testcaseo2,testcase[0].testcaseo3,testcase[0].testcaseo4];
+        var testcase = await addProblem.find({
+            problemName: req.body.problem_name
+        });
+        var input = [testcase[0].testcase1, testcase[0].testcase2, testcase[0].testcase3, testcase[0].testcase4];
+        var ans = [testcase[0].testcaseo1, testcase[0].testcaseo2, testcase[0].testcaseo3, testcase[0].testcaseo4];
         var result = true;
         console.log(ans);
         console.log(input);
@@ -434,59 +492,64 @@ app.post("/submitCode",checklogin, async (req, res) => {
             }
         }
         if (result) {
-            const findmail=await Register.findOne({_id:verifyUser._id});
-            const findscore=await addProblem.findOne({problemName:req.body.problem_name});
+            const findmail = await Register.findOne({
+                _id: verifyUser._id
+            });
+            const findscore = await addProblem.findOne({
+                problemName: req.body.problem_name
+            });
             console.log(findmail.email);
-            var pastscore=undefined;
-            var pasts=0;
-            try{
-                pastscore=await submission.findOne({email:findmail.email,contestName:findscore.contestName})
+            var pastscore = undefined;
+            var pasts = 0;
+            try {
+                pastscore = await submission.findOne({
+                    email: findmail.email,
+                    contestName: findscore.contestName
+                })
                 console.log(pastscore.problem_names);
-                var exist=false;
-                pasts=pastscore.score;
-                for(var i=0;i<(pastscore.problem_names).length;i++)
-                {
-                    if(req.body.problem_name===(pastscore.problem_names)[0].name)
-                    {
-                        console.log('hello');
-                        exist=true;
+                var exist = false;
+                pasts = pastscore.score;
+                for (var i = 0; i < (pastscore.problem_names).length; i++) {
+                    if (req.body.problem_name === (pastscore.problem_names)[0].name) {
+                        exist = true;
                         break;
                     }
                 }
-                if(!exist)pastscore.addNameOf(req.body.problem_name);
+                if (!exist) pastscore.addNameOf(req.body.problem_name);
 
-                if(!exist){await submission.updateOne(
-                    {
-                        email:findmail.email,contestName:findscore.contestName
-                    },
-                    {
-                        email:findmail.email,
-                        submittedCode:req.body.code,
-                        status:Boolean(result),
-                        timeOfSubmission:fulltime,
-                        score:(parseInt(pasts)+parseInt(findscore.score)),
-                    }
-                )}
-            }
-            catch(err)
-            {
-                    var subm=new submission({
-                    email:findmail.email,
-                    submittedCode:req.body.code,
-                    status:Boolean(result),
-                    timeOfSubmission:fulltime,
-                    score:(parseInt(pasts)+parseInt(findscore.score)),
-                    contestName:findscore.contestName
+                if (!exist) {
+                    await submission.updateOne({
+                        email: findmail.email,
+                        contestName: findscore.contestName
+                    }, {
+                        email: findmail.email,
+                        submittedCode: req.body.code,
+                        status: Boolean(result),
+                        timeOfSubmission: fulltime,
+                        score: (parseInt(pasts) + parseInt(findscore.score)),
+                    })
+                }
+            } catch (err) {
+                var subm = new submission({
+                    email: findmail.email,
+                    submittedCode: req.body.code,
+                    status: Boolean(result),
+                    timeOfSubmission: fulltime,
+                    score: (parseInt(pasts) + parseInt(findscore.score)),
+                    contestName: findscore.contestName
                 });
-                subm.problem_names=subm.problem_names.concat({name:req.body.problem_name});
+                subm.problem_names = subm.problem_names.concat({
+                    name: req.body.problem_name
+                });
                 await subm.save();
             }
             const problems = await addProblem.find({
-                    problem: findscore.contestName
-                });
-                res.render('problem_shown', {
-                    problem: problems
-                });
+                problem: findscore.contestName
+            });
+            res.render('problem_shown', {
+                problem: problems,
+                contestName: findscore.contestName
+            });
         } else {
             res.send("Wrong Answer");
         }
@@ -495,7 +558,6 @@ app.post("/submitCode",checklogin, async (req, res) => {
         res.send(err);
     }
 });
-
 app.listen(3000, () => {
     console.log('server is running in http:localhost:3000');
 });
